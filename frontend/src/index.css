@@ -86,22 +86,31 @@ h3 {
   color: #828282;
 }
 
-.goals {
+.menus {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
 }
 
-.goal {
+.menu {
   background-color: #f4f4f4;
   margin: 10px 0;
   padding: 20px 0 10px;
   position: relative;
 }
 
-.goal .close {
+.menu .close {
   position: absolute;
   top: 10px;
+  right: 15px;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.menu .edit {
+  position: absolute;
+  bottom: 10px;
   right: 15px;
   cursor: pointer;
   border: none;
@@ -149,6 +158,47 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.btn-add {
+  padding: 10px 20px;
+  border: 1px solid #369142;
+  border-radius: 5px;
+  background: #369142;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  appearance: button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-remove{
+  padding: 10px 20px;
+  border: 1px solid #8f2929;
+  border-radius: 5px;
+  background: #8f2929;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  appearance: button;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+
+.btn-center {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.btn-add:hover{
+  transform: scale(0.96)
 }
 
 .btn svg {

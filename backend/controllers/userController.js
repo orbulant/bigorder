@@ -56,6 +56,7 @@ const loginUser = asyncHandler(async (req, res) => {
     const user = await User.findOne({ email });
 
     if (user && (await bcrypt.compare(password, user.password))) {
+        console.log(`User: ${user.name} has logged in.`.magenta);
         res.json({
             _id: user.id,
             name: user.name,
@@ -64,7 +65,7 @@ const loginUser = asyncHandler(async (req, res) => {
         });
     } else {
         res.status(400);
-        throw new Error("Invalid credentials.w");
+        throw new Error("Invalid credentials.");
     }
 
     res.json({ message: `Login User` });
@@ -74,13 +75,7 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route GET /api/users/me
 // @access Private
 const getCurrentUser = asyncHandler(async (req, res) => {
-    const { _id, name, email } = await User.findById(req.user.id);
-
-    res.status(200).json({
-        id: _id,
-        name,
-        email,
-    });
+    res.status(200).json(req.user);
 });
 
 // Generate JWT

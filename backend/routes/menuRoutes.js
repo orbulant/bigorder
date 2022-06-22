@@ -7,11 +7,12 @@ const {
     deleteMenu,
 } = require("../controllers/menuController");
 
-const { protect } = require('../middleware/authMiddleware');
+const { protect } = require("../middleware/authMiddleware");
 
+router.route("/").get(protect, getMenu);
+router.route("/").post(protect, setMenu);
 
-router.route("/").get(protect, getMenu).post(protect, setMenu);
-
-router.route("/:id").put(protect, updateMenu).delete(protect, deleteMenu);
+router.route("/:id").put(protect, updateMenu);
+router.route("/:id").delete(protect, deleteMenu);
 
 module.exports = router;

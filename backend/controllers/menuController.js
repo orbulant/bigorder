@@ -40,16 +40,14 @@ const updateMenu = asyncHandler(async (req, res) => {
         throw new Error("Menu not found!");
     }
 
-    const user = await User.findById(req.user.id);
-
     //Check for user
-    if (!user) {
+    if (!req.user) {
         res.status(401);
         throw new Error("User not found!");
     }
 
     // Logged in user matching the menu user
-    if (menu.user.toString() !== user.id) {
+    if (menu.user.toString() !== req.user.id) {
         res.status(401);
         throw new Error("User not authorized");
     }
@@ -71,23 +69,21 @@ const deleteMenu = asyncHandler(async (req, res) => {
         throw new Error("Menu not found");
     }
 
-    const user = await User.findById(req.user.id);
-
     //Check for user
-    if (!user) {
+    if (!req.user) {
         res.status(401);
         throw new Error("User not found!");
     }
 
     // Logged in user matching the menu user
-    if (menu.user.toString() !== user.id) {
+    if (menu.user.toString() !== req.user.id) {
         res.status(401);
         throw new Error("User not authorized");
     }
 
     await menu.remove();
     
-    res.status(200).json({ id: req.params.id });
+    res.status(200).json({ id: req.params.id, restaurantName: menu.restaurantName});
 });
 
 module.exports = {
