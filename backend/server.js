@@ -12,6 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use("/api/publicmenu", require("./routes/publicMenuRoutes"));
 app.use("/api/menu", require("./routes/menuRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
 
