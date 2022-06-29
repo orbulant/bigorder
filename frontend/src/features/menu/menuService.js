@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "/api/menu/";
+const API_URL = "/api/menus/";
 
 // Create new menu
 const createMenu = async (menuData, token) => {

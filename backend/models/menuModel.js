@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const menuItemSchema = require("./menuItemModel");
 
 const menuSchema = mongoose.Schema(
     {
@@ -13,21 +14,7 @@ const menuSchema = mongoose.Schema(
             unique: true,
         },
         menuItems: {
-            type: [{
-                name: {
-                    type: String,
-                    required: [true, "Please give menu item a name!"]
-                },
-                desc: {
-                    type: String,
-                    required: false
-                },
-                price: {
-                    type: String,
-                    required: [true, "Please give menu item a price!"]
-                }
-                
-            }],
+            type: [menuItemSchema],
             required: [true, "Please add menu items!"],
         },
     },

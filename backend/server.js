@@ -13,11 +13,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/publicmenu", require("./routes/publicMenuRoutes"));
-app.use("/api/menu", require("./routes/menuRoutes"));
+app.use("/api/menus", require("./routes/menuRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/orders", require("./routes/orderRoutes"));
 
 app.use(errorHandler);
 
 app.listen(port, () => {
-  console.log(`Server Started on port ${port}`);
+    console.log(`Server Started on port ${port}`);
 });

@@ -1,5 +1,5 @@
 import { FaSignInAlt, FaSignOutAlt, FaUser, FaBook } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, matchPath } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 import { logout, reset } from "../features/auth/authSlice";
@@ -7,6 +7,8 @@ import { logout, reset } from "../features/auth/authSlice";
 const Header = () => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
+
+    const location = useLocation();
 
     const onLogout = () => {
         dispatch(logout());
@@ -20,18 +22,23 @@ const Header = () => {
             </div>
             <ul>
                 {user ? (
-                    <>
-                        <li>
-                            <Link to="/menus">
-                                <FaBook /> Menus
-                            </Link>
-                        </li>
-                        <li>
-                            <button className="btn" onClick={onLogout}>
-                                <FaSignOutAlt /> Logout
-                            </button>
-                        </li>
-                    </>
+                    //TODO CHANGE THIS USING MATCHPATH
+                    location.pathname.includes("publicmenu") ? (
+                        <div>Order Below!</div>
+                    ) : (
+                        <>
+                            <li>
+                                <Link to="/menus">
+                                    <FaBook /> Menus
+                                </Link>
+                            </li>
+                            <li>
+                                <button className="btn" onClick={onLogout}>
+                                    <FaSignOutAlt /> Logout
+                                </button>
+                            </li>
+                        </>
+                    )
                 ) : (
                     <>
                         <li>

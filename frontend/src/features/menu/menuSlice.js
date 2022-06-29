@@ -5,6 +5,7 @@ const initialState = {
     menu: [],
     isError: false,
     isCreated: false,
+    isSuccess: false,
     isLoading: false,
     isLoaded: false,
     isDeleted: false,

@@ -3,9 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
-import { getMenu, reset, updateMenuThunk } from "../features/menu/menuSlice";
+import { getMenu, reset, updateMenuThunk, updateMenu } from "../features/menu/menuSlice";
 import { Form, Field } from "react-final-form";
-import { updateMenu } from "../features/menu/menuSlice";
 
 const MenuItem = () => {
     const navigate = useNavigate();
