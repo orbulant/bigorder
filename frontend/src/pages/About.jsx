@@ -72,7 +72,7 @@ const About = () => {
                             </Text>
                         </Card>
                     </Grid>
-                    <Grid xs={6}>
+                    <Grid xs={12}>
                         <Card type="alert">
                             <Text h2 style={{ color: "#FFF" }}>
                                 Creator
@@ -87,7 +87,7 @@ const About = () => {
                             </Text>
                         </Card>
                     </Grid>
-                    <Grid xs={6}>
+                    <Grid xs={12}>
                         <Card type="warning">
                             <Text h2 style={{ color: "#FFF" }}>
                                 Tech Used
