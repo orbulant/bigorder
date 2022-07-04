@@ -18,7 +18,7 @@ const Dashboard = () => {
 
     return (
         <>
-            <h1>Welcome, {user && user.name}</h1>
+            <h1 style={{color : "#FFF"}}>Welcome, {user && user.name}</h1>
             <Spacer h={2} />
             <IceCream size={300} mood="blissful" color="#FDA7DC" />
         </>
