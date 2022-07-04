@@ -68,7 +68,9 @@ const Receipt = () => {
                     Back
                 </Link>
             </div>
-            <h1>Receipt</h1>
+            <Spacer h={1}/>
+            <h1 style={{color: "#FFF"}}>Receipt</h1>
+            <Spacer h={0.5} />
             <Button
                 type="warning"
                 onClick={() => {

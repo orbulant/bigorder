@@ -33,7 +33,8 @@ const PublicOrder = () => {
     return (
         <Card>
             <h1>Your order is placed!</h1>
-            <h2>Order ID: {publicOrder ? publicOrder._id : "-"}</h2>
+            <h4>Order ID: {publicOrder ? publicOrder._id : "-"}</h4>
+            <Spacer h={1} />
             <h3>Your Table: {publicOrder ? publicOrder.tableNumber : "-"}</h3>
             {/* {publicOrder.cart ? (
                 publicOrder.cart.map((item, index) => {
@@ -54,10 +55,10 @@ const PublicOrder = () => {
                 <Table.Column prop="itemTotal" label="Item Total (RM)" />
                 <Table.Column prop="quantity" label="Quantity" />
             </Table>
-            <Spacer h={1} />
+            <Spacer h={0.4} />
             <Divider />
-            <Spacer h={1} />
-            <Badge font="32px">
+            <Spacer h={0.4} />
+            <Badge font="24px">
                 Your total (RM):{"  "}
                 {publicOrder.cart ? (
                     publicOrder.cart.reduce((accumulator, object) => {

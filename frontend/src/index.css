@@ -1,8 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
-body, header, nav{
-  color: white
-}
 
 .footer {
   color: #000;
@@ -274,10 +271,9 @@ h3 {
   margin-top: auto;
 }
 
-.form,
+.form
 .content {
   width: 80%;
-  margin: 0 auto;
   color: #000;
 }
 

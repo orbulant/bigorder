@@ -117,8 +117,8 @@ const GenerateMenuQR = () => {
                             </div>
                             <Spacer h={1} />
                             <div>
-                                <h2>Current URL Created:</h2>
-                                <p>{`${url}publicmenu/${menuId}/${values.tableNumber}`}</p>
+                                <Text h2>Current URL Created:</Text>
+                                <Text style={{wordWrap: "break-word"}}>{`${url}publicmenu/${menuId}/${values.tableNumber}`}</Text>
                             </div>
                             <Divider />
                             <div ref={ref}>

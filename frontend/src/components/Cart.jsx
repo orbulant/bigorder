@@ -1,7 +1,7 @@
 import { useCart } from "react-use-cart";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder } from "../features/publicorder/publicOrderSlice";
-import { Collapse, Spacer, Badge, Button } from "@geist-ui/core";
+import { Collapse, Spacer, Badge, Button, Table } from "@geist-ui/core";
 
 const Cart = ({ customTable }) => {
     const {
@@ -67,57 +67,56 @@ const Cart = ({ customTable }) => {
             </div>
             <Collapse.Group>
                 <Collapse title="Cart" initialVisible>
-                    <table className="publicMenu">
-                        <tbody>
-                            {items.map((item) => (
-                                <tr key={item.id} className="cartItems">
-                                    <td
-                                        className="cartTableItemBtn"
-                                        headers="th1"
-                                    >
-                                        {item.quantity}x
-                                    </td>
-                                    <td className="cartTableItem" headers="th2">
-                                        {item.name}
-                                    </td>
-                                    <td className="cartTableItemBtn">
-                                        <button
-                                            className="btn-remove-small"
-                                            onClick={() =>
-                                                updateItemQuantity(
-                                                    item.id,
-                                                    item.quantity - 1
-                                                )
-                                            }
-                                        >
-                                            -
-                                        </button>
-                                    </td>
-                                    <td className="cartTableItemBtn">
-                                        <button
-                                            className="btn-add-small"
-                                            onClick={() =>
-                                                updateItemQuantity(
-                                                    item.id,
-                                                    item.quantity + 1
-                                                )
-                                            }
-                                        >
-                                            +
-                                        </button>
-                                    </td>
-                                    <td className="cartTableItemBtn">
-                                        <button
-                                            className="btn-remove-small"
-                                            onClick={() => removeItem(item.id)}
-                                        >
-                                            x
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <Table data={items} style={{justifyContent: "flex-start"}}>
+                        <Table.Column prop="quantity" label="Quantity" />
+                        <Table.Column prop="name" label="Name" />
+                        <Table.Column
+                            prop="decrement"
+                            label="Remove"
+                            render={(value, rowData) => (
+                                <button
+                                    className="btn-remove-small"
+                                    onClick={() =>
+                                        updateItemQuantity(
+                                            rowData.id,
+                                            rowData.quantity - 1
+                                        )
+                                    }
+                                >
+                                    -
+                                </button>
+                            )}
+                        />
+                        <Table.Column
+                            prop="increment"
+                            label="Add"
+                            render={(value, rowData) => (
+                                <button
+                                    className="btn-add-small"
+                                    onClick={() =>
+                                        updateItemQuantity(
+                                            rowData.id,
+                                            rowData.quantity + 1
+                                        )
+                                    }
+                                >
+                                    +
+                                </button>
+                            )}
+                        />
+                        <Table.Column
+                            prop="remove"
+                            label="Delete"
+                            render={(value, rowData) => (
+                                <button
+                                    className="btn-remove-small"
+                                    onClick={() => removeItem(rowData.id)}
+                                >
+                                    x
+                                </button>
+                            )}
+                        />
+                    </Table>
                 </Collapse>
             </Collapse.Group>
         </section>

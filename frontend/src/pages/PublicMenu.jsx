@@ -71,7 +71,6 @@ const PublicMenu = () => {
     return (
         <Card>
             <h3>Place your order from {publicMenu.restaurantName}</h3>
-
             <h4>Current table: {tableNumber ? tableNumber : customTable}</h4>
             {tableNumber ? (
                 <div>

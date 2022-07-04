@@ -28,6 +28,7 @@ const Order = ({ menuItems }) => {
                         return (
                             <Button
                                 auto
+                                scale={1/2}
                                 type="secondary-light"
                                 onClick={() => {
                                     addItem({
