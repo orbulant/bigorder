@@ -1,13 +1,16 @@
 import { useNavigate } from "react-router-dom";
-import { Tooltip, Text, Button, Collapse } from "@geist-ui/core";
+import { Description, Spacer, Button, Collapse } from "@geist-ui/core";
 const MenuItem = ({ item }) => {
     const navigate = useNavigate();
 
     return (
         <Collapse title={item.name} subtitle={`Price (RM): ${item.price}`}>
-            <Text>
-                {item.desc ? item.desc : "This item has no description"}
-            </Text>
+            <Description
+                title="Description"
+                content={item.desc ? item.desc : "This item has no description"}
+                style={{textAlign: "left"}}
+            />
+            <Spacer h={1} />
             <Button
                 auto
                 type="secondary"

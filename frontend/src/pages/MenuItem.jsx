@@ -13,7 +13,7 @@ import { Form, Field } from "react-final-form";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { deleteMenuItem } from "../features/menu/menuSlice";
-import { Card, Spacer } from "@geist-ui/core";
+import { Card, Spacer, Text } from "@geist-ui/core";
 
 const MenuItem = () => {
     const navigate = useNavigate();
@@ -79,7 +79,7 @@ const MenuItem = () => {
                 <FaArrowLeft /> Go Back
             </Link>
             <Spacer h={2} />
-            <Card>
+            <Card hoverable>
                 <Form
                     onSubmit={onSubmit}
                     initialValues={{
@@ -100,6 +100,10 @@ const MenuItem = () => {
                                 className="form-group content"
                                 key={selectedMenuItem?._id}
                             >
+                                <Card.Content>
+                                    <Text h2>{values.name}</Text>
+                                    <Text h4>Price (RM): {values.price}</Text>
+                                </Card.Content>
                                 <div>
                                     <label>Item Name</label>
                                     <Field
@@ -129,30 +133,32 @@ const MenuItem = () => {
                                         min="0"
                                     />
                                 </div>
-
-                                <button
-                                    className="btn-small"
-                                    type="button"
-                                    onClick={form.reset}
-                                    disabled={submitting || pristine}
+                                <Card.Footer
+                                    style={{ justifyContent: "center" }}
                                 >
-                                    Reset
-                                </button>
-                                <button
-                                    className="btn-add-small"
-                                    type="submit"
-                                    disabled={submitting || pristine}
-                                >
-                                    Submit
-                                </button>
-
-                                <button
-                                    className="btn-remove-small"
-                                    type="button"
-                                    onClick={onClick}
-                                >
-                                    Delete
-                                </button>
+                                    <button
+                                        className="btn-remove-small"
+                                        type="button"
+                                        onClick={onClick}
+                                    >
+                                        Delete This Item
+                                    </button>
+                                    <button
+                                        className="btn-small"
+                                        type="button"
+                                        onClick={form.reset}
+                                        disabled={submitting || pristine}
+                                    >
+                                        Reset
+                                    </button>
+                                    <button
+                                        className="btn-add-small"
+                                        type="submit"
+                                        disabled={submitting || pristine}
+                                    >
+                                        Submit
+                                    </button>
+                                </Card.Footer>
                             </div>
                         </form>
                     )}
