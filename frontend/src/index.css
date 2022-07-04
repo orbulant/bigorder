@@ -261,13 +261,17 @@ h3 {
 .container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  min-width: 0;
+  height: 100vh;
   width: 100%;
+  min-width: 0;
   max-width: 960px;
   margin: 0 auto;
   padding: 0 20px;
   text-align: center;
+}
+
+.footer{
+  margin-top: auto;
 }
 
 .form,

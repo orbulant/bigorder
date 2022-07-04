@@ -254,7 +254,7 @@ const MenuForm = () => {
                                         Submit
                                     </Button>
                                     <Button
-                                        type="abort"
+                                        type="error"
                                         onClick={form.reset}
                                         disabled={submitting || pristine}
                                     >

@@ -60,7 +60,7 @@ const Cart = ({ customTable }) => {
                 </div>
                 <Spacer h={1} />
                 {!isEmpty && (
-                    <Button type="abort" onClick={emptyCart}>
+                    <Button type="error" onClick={emptyCart}>
                         Empty cart
                     </Button>
                 )}

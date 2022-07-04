@@ -5,7 +5,7 @@ import Spinner from "../components/Spinner";
 import { reset } from "../features/publicorder/publicOrderSlice";
 import { useParams } from "react-router-dom";
 import { getCurrentOrder } from "../features/publicorder/publicOrderSlice";
-import { Spacer, Divider, Badge, Table } from "@geist-ui/core";
+import { Spacer, Divider, Badge, Table, Card } from "@geist-ui/core";
 
 const PublicOrder = () => {
     const { orderId } = useParams();
@@ -31,7 +31,7 @@ const PublicOrder = () => {
         return <Spinner />;
     }
     return (
-        <div>
+        <Card>
             <h1>Your order is placed!</h1>
             <h2>Order ID: {publicOrder ? publicOrder._id : "-"}</h2>
             <h3>Your Table: {publicOrder ? publicOrder.tableNumber : "-"}</h3>
@@ -67,7 +67,7 @@ const PublicOrder = () => {
                     <div>-</div>
                 )}
             </Badge>
-        </div>
+        </Card>
     );
 };
 

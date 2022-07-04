@@ -4,7 +4,7 @@ import { reset, setOrderPaid } from "../features/order/orderSlice";
 import { toast } from "react-toastify";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { getOrder } from "../features/order/orderSlice";
-import { Button, Table, Text, Card } from "@geist-ui/core";
+import { Button, Table, Text, Card, Spacer } from "@geist-ui/core";
 import { toPng } from "html-to-image";
 import { FaArrowLeft } from "react-icons/fa";
 
@@ -90,36 +90,40 @@ const Receipt = () => {
             >
                 Print
             </Button>
+            <Spacer h={2}/>
             <div ref={ref}>
-                <Text font="24px" style={{ padding: "20px 20px" }}>
-                    Table: {orders.tableNumber}
-                </Text>
-                <Text>Order ID: {orders._id}</Text>
-
                 <Card>
-                    <Table data={orders.cart}>
-                        <Table.Column prop="name" label="Item Name" />
-                        <Table.Column prop="quantity" label="Quantity" />
-                        <Table.Column
-                            prop="itemTotal"
-                            label="Item Total (RM)"
-                        />
-                        <Table.Column
-                            prop="itemPrice"
-                            label="Item Price (RM)"
-                            render={(value, rowData, index) =>
-                                `${rowData.itemTotal / rowData.quantity}`
-                            }
-                        />
-                    </Table>
+                    <Text font="24px" style={{ padding: "20px 20px" }}>
+                        Table: {orders.tableNumber}
+                    </Text>
+                    <Text>Order ID: {orders._id}</Text>
+                    <Card>
+                        <Table data={orders.cart}>
+                            <Table.Column prop="name" label="Item Name" />
+                            <Table.Column prop="quantity" label="Quantity" />
+                            <Table.Column
+                                prop="itemTotal"
+                                label="Item Total (RM)"
+                            />
+                            <Table.Column
+                                prop="itemPrice"
+                                label="Item Price (RM)"
+                                render={(value, rowData, index) =>
+                                    `${rowData.itemTotal / rowData.quantity}`
+                                }
+                            />
+                        </Table>
+                    </Card>
+                    <p style={{ padding: "20px 20px" }}>
+                        Total (RM):{" "}
+                        {orders.cart &&
+                            orders.cart
+                                .reduce((accumulator, object) => {
+                                    return accumulator + object.itemTotal;
+                                }, 0)
+                                .toFixed(2)}
+                    </p>
                 </Card>
-                <p style={{ padding: "20px 20px" }}>
-                    Total (RM):{" "}
-                    {orders.cart &&
-                        orders.cart.reduce((accumulator, object) => {
-                            return accumulator + object.itemTotal;
-                        }, 0).toFixed(2)}
-                </p>
             </div>
         </div>
     );

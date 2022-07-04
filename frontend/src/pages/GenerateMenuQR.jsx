@@ -11,10 +11,7 @@ const GenerateMenuQR = () => {
     const { menuId } = useParams();
     const ref = useRef(null);
 
-    const production = "https://bigorder.com.my/";
-    const development = "http://localhost:3000/";
-    const url =
-        process.env.NODE_ENV === "production" ? production : development;
+    const url = window.location.host + "/";
 
     const required = (value) =>
         value ? undefined : "Table Location required!";
@@ -127,17 +124,18 @@ const GenerateMenuQR = () => {
                             <div ref={ref}>
                                 <QRCodeSVG
                                     value={`${url}publicmenu/${menuId}/${values}`}
-                                    size={420}
+                                    size={256}
                                     bgColor={"#FFF"}
                                     fgColor={"#000"}
                                     includeMargin={true}
                                 />
-                                <Text font="64px">
+                                <Text font="32px">
                                     Table: {values.tableNumber}
                                 </Text>
                             </div>
                             <Divider />
                             <Button
+                                auto
                                 type="success-light"
                                 onClick={() =>
                                     onButtonClickDownload(values.tableNumber)

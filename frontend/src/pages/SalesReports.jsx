@@ -52,7 +52,7 @@ const SalesReports = () => {
                     >
                         Total Number of Orders to Date
                     </Text>
-                    <Text style={{color: "#FFF"}}>{totalOrdersMade}</Text>
+                    <Text style={{ color: "#FFF" }}>{totalOrdersMade}</Text>
                 </Card>
             </Grid>
             <Grid xs={12}>
@@ -64,8 +64,8 @@ const SalesReports = () => {
                     >
                         Total Sales Generated
                     </Text>
-                    <Text style={{ color: "#FFF" }}>RM{" "}
-                        {totalMoneyMade.toFixed(2)}
+                    <Text style={{ color: "#FFF" }}>
+                        RM {totalMoneyMade.toFixed(2)}
                     </Text>
                 </Card>
             </Grid>
@@ -80,7 +80,9 @@ const SalesReports = () => {
                     </Text>
                     {Object.keys(orderedItemsCount).map((key, val) => (
                         <div key={val}>
-                            <Dot style={{ marginRight: "20px" }}>{key}</Dot>
+                            <Dot style={{ marginRight: "20px", color: "#FFF" }}>
+                                {key}
+                            </Dot>
                             <Text style={{ color: "#FFF" }}>
                                 {orderedItemsCount[key]}
                             </Text>

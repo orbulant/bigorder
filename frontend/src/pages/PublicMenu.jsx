@@ -12,6 +12,7 @@ import { CartProvider } from "react-use-cart";
 import Cart from "../components/Cart";
 import PublicOrder from "../components/PublicOrder";
 import { setCurrentOrderInfo } from "../features/publicorder/publicOrderSlice";
+import { Card } from "@geist-ui/core";
 
 const PublicMenu = () => {
     const [customTable, setCustomTable] = useState("");
@@ -68,7 +69,7 @@ const PublicMenu = () => {
     }
 
     return (
-        <>
+        <Card>
             <h3>Place your order from {publicMenu.restaurantName}</h3>
 
             <h4>Current table: {tableNumber ? tableNumber : customTable}</h4>
@@ -98,7 +99,7 @@ const PublicMenu = () => {
                     )}
                 </CartProvider>
             </section>
-        </>
+        </Card>
     );
 };
 

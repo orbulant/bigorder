@@ -7,7 +7,7 @@ import Spinner from "../components/Spinner";
 import { getMenu, reset } from "../features/menu/menuSlice";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { Spacer, Card, Text } from "@geist-ui/core";
+import { Spacer, Card, Text, Collapse } from "@geist-ui/core";
 
 const Menu = () => {
     const navigate = useNavigate();
@@ -56,11 +56,11 @@ const Menu = () => {
                 <Card>
                     <Text>Currently viewing this menu:</Text>
                     <Text h2>{thisMenu.restaurantName}</Text>
-                    <Spacer h={2} />
-
-                    {thisMenu.menuItems.map((item, index) => (
-                        <MenuItem key={index} item={item} />
-                    ))}
+                    <Collapse.Group>
+                        {thisMenu.menuItems.map((item, index) => (
+                            <MenuItem key={index} item={item} />
+                        ))}
+                    </Collapse.Group>
                 </Card>
             ) : (
                 <p>This menu is not found.</p>
