@@ -1,22 +1,34 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Tooltip, Text, Button } from "@geist-ui/core";
+import { FaInfoCircle } from "react-icons/fa";
 
 const MenuItem = ({ item }) => {
+    const navigate = useNavigate();
 
-    const deleteMenuItem = () => {
-        //TODO Delete Menu Item
-    }
     return (
-        <div className="menu">
-            <h2>{item.name}</h2>
-            <h5>{item.desc ? item.desc : "This item has no description"}</h5>
-            <h4>RM {item.price}</h4>
-            <button
-                onClick={deleteMenuItem}
-                className="close"
+        <div
+            style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+            }}
+        >
+            <Text h1>Item Name: {item.name}</Text>
+            <Text h2>Price (RM): {item.price}</Text>
+            <Tooltip
+                text={item.desc ? item.desc : "This item has no description"}
             >
-                X
-            </button>
-            <Link to={`${item._id}`}>Edit</Link>
+                <FaInfoCircle />
+            </Tooltip>
+
+            <Button
+                auto
+                type="secondary"
+                onClick={() => navigate(`${item._id}`)}
+            >
+                Edit
+            </Button>
         </div>
     );
 };

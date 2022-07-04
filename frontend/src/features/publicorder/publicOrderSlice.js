@@ -11,10 +11,9 @@ const initialState = {
     isDeleted: false,
     message: "",
 };
-
 // Create new order
 export const createOrder = createAsyncThunk(
-    "order/create",
+    "publicorder/create",
     async (orderData, thunkAPI) => {
         try {
             return await publicOrderService.createOrder(orderData);
@@ -30,8 +29,26 @@ export const createOrder = createAsyncThunk(
     }
 );
 
+//Get Current Order
+export const getCurrentOrder = createAsyncThunk(
+    "publicorder/getcurrent",
+    async (orderId, thunkAPI) => {
+        try {
+            return await publicOrderService.getCurrentOrder(orderId);
+        } catch (error) {
+            const message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
+
 export const publicOrderSlice = createSlice({
-    name: "publicOrder",
+    name: "publicorder",
     initialState,
     reducers: {
         reset: (state) => initialState,
@@ -49,13 +66,27 @@ export const publicOrderSlice = createSlice({
             .addCase(createOrder.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isCreated = true;
-                state.message = action.payload;
+                state.publicOrder = action.payload;
+                state.message = "Order Created Successfully!";
             })
             .addCase(createOrder.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
-            });
+            })
+            .addCase(getCurrentOrder.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getCurrentOrder.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isLoaded = true;
+                state.publicOrder = action.payload;
+            })
+            .addCase(getCurrentOrder.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+            })
     },
 });
 export const { reset, setCurrentOrderInfo } = publicOrderSlice.actions;

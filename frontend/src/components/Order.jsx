@@ -1,66 +1,56 @@
-import { useCart } from "react-use-cart";
-import ReactTooltip from "react-tooltip";
-import { FaInfoCircle } from "react-icons/fa";
+import { Card, Spacer, Text, Dot, Button, Badge, Tag } from "@geist-ui/core";
+import moment from "moment";
 
-const Order = ({ menuItems }) => {
-    const { addItem, inCart } = useCart();
-
+const Order = ({ order, onClick, onClickKeyword }) => {
     return (
-        <section>
-            <table className="publicMenu">
-                <thead>
-                    <tr>
-                        <th>Item</th>
-                        <th>Description</th>
-                        <th>Price (RM)</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {menuItems.map((item) => {
-                        const alreadyAdded = inCart(item._id);
-                        return (
-                            <tr key={item._id}>
-                                <td>
-                                    <p>{item.name}</p>
-                                </td>
-                                <td>
-                                    <p data-tip={item.desc}>
-                                        <FaInfoCircle />
-                                    </p>
+        <Card shadow>
+            <h4>Order ID: {order._id}</h4>
+            <div>
+                {onClick ? (
+                    <Button auto type={onClickKeyword === "Mark Completed" ? "warning-light" : "success-light" } onClick={onClick}>
+                        {onClickKeyword}
+                    </Button>
+                ) : (
+                    <Dot type="secondary">Paid </Dot>
+                )}
+            </div>
+            <div>
+                <Dot
+                    style={{ marginRight: "20px" }}
+                    type={
+                        onClickKeyword === "Mark Completed"
+                            ? "warning"
+                            : "success"
+                    }
+                >
+                    {onClickKeyword === "Mark Completed"
+                        ? "Ready"
+                        : "Fulfilled"}
+                </Dot>
+                <Dot type="secondary">
+                    {moment(order.updatedAt).format("hh:mm:ssA (DD MMM YYYY)")}
+                </Dot>
+                <Tag style={{ margin: "5px 20px" }} invert>
+                    Table: {order.tableNumber}
+                </Tag>
+            </div>
 
-                                    <ReactTooltip
-                                        place="top"
-                                        type="info"
-                                        effect="solid"
-                                    />
-                                </td>
-                                <td>
-                                    <h5>RM: {item.price}</h5>
-                                </td>
-                                <td>
-                                    <button
-                                        className="btn-add-small"
-                                        onClick={() =>
-                                            addItem({
-                                                id: item._id,
-                                                name: item.name,
-                                                desc: item.desc,
-                                                price: item.price,
-                                            })
-                                        }
-                                    >
-                                        {alreadyAdded
-                                            ? "Add Again"
-                                            : "Add to Cart"}
-                                    </button>
-                                </td>
-                            </tr>
-                        );
-                    })}
-                </tbody>
-            </table>
-        </section>
+            {order.cart.map((x) => (
+                <div key={x._id}>
+                    <Card key={x._id}>
+                        <Text>Item: {x.name}</Text>
+                        <Badge>Quantity: {x.quantity}</Badge>
+                    </Card>
+                    <Spacer h={0.5} />
+                </div>
+            ))}
+            <Text>
+                Total (RM):{" "}
+                {order.cart.reduce((accumulator, object) => {
+                    return accumulator + object.itemTotal;
+                }, 0).toFixed(2)}
+            </Text>
+        </Card>
     );
 };
 

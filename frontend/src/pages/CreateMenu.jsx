@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 const CreateMenu = () => {
     return (
         <>
-            <Link to="/menus">
-                <FaArrowLeft /> Go Back
-            </Link>
+            <div style={{ padding: "15px 10px" }}>
+                <Link to="/menus" style={{fontSize: 18}}>
+                    <FaArrowLeft size={18} style={{paddingTop: "6px"}}/> Go Back
+                </Link>
+            </div>
             <MenuForm />
         </>
     );

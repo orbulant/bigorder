@@ -3,9 +3,11 @@ import { FaPlusSquare } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { getMenu, reset } from "../features/menu/menuSlice";
+
 import Menu from "../components/Menu";
 import Spinner from "../components/Spinner";
-import { getMenu, reset } from "../features/menu/menuSlice";
+import { Spacer } from "@geist-ui/core";
 
 const Menus = () => {
     const navigate = useNavigate();
@@ -47,14 +49,21 @@ const Menus = () => {
 
     return (
         <>
-            <Link to="/createmenu">
-                <FaPlusSquare /> Create New Menu
-            </Link>
+            <div className="nav-link">
+                <Link to="/createmenu" style={{ fontSize: 18 }}>
+                    <FaPlusSquare size={18} style={{ paddingTop: "6px" }} />{" "}
+                    Create New Menu
+                </Link>
+            </div>
+            <Spacer h={1} />
             <section className="content">
                 {menu.length > 0 ? (
                     <section>
                         {menu.map((menu, index) => (
-                            <Menu key={index} menu={menu} />
+                            <div key={index}>
+                                <Menu key={index} menu={menu} />
+                                <Spacer h={1} />
+                            </div>
                         ))}
                     </section>
                 ) : (

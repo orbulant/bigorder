@@ -101,6 +101,12 @@ export const menuSlice = createSlice({
             const foundIndex = state.menu.findIndex(menu => menu._id === action.payload.id);
             const foundItemIndex = state.menu[foundIndex].menuItems.findIndex(item => item._id === action.payload.body._id)
             state.menu[foundIndex].menuItems[foundItemIndex] = action.payload.body;
+        },
+        deleteMenuItem: (state, action) => {
+            const foundIndex = state.menu.findIndex(menu => menu._id === action.payload.id);
+            const foundItemIndex = state.menu[foundIndex].menuItems.findIndex(item => item._id === action.payload.menuItemId)
+            state.menu[foundIndex].menuItems.splice(foundItemIndex, 1);
+            state.isDeleted = true;
         }
     },
     extraReducers: (builder) => {
@@ -170,5 +176,5 @@ export const menuSlice = createSlice({
     },
 });
 
-export const { reset, updateMenu } = menuSlice.actions;
+export const { reset, updateMenu, deleteMenuItem } = menuSlice.actions;
 export default menuSlice.reducer;

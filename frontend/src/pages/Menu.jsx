@@ -5,6 +5,9 @@ import { toast } from "react-toastify";
 import MenuItem from "../components/MenuItem";
 import Spinner from "../components/Spinner";
 import { getMenu, reset } from "../features/menu/menuSlice";
+import { FaArrowLeft } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { Spacer, Card, Text } from "@geist-ui/core";
 
 const Menu = () => {
     const navigate = useNavigate();
@@ -42,25 +45,23 @@ const Menu = () => {
 
     return (
         <>
+            <div className="nav-link">
+                <Link to="/menus" style={{ fontSize: 18 }}>
+                    <FaArrowLeft size={18} style={{ paddingTop: "6px" }} /> Go
+                    Back
+                </Link>
+            </div>
+            <Spacer h={2} />
             {thisMenu ? (
-                <section>
-                    <h2>Currently viewing this menu:</h2>
-                    <div
-                        style={{
-                            backgroundColor: "darkgrey",
-                            color: "white",
-                            padding: 20,
-                        }}
-                    >
-                        <h2>{thisMenu.restaurantName}</h2>
-                    </div>
+                <Card>
+                    <Text>Currently viewing this menu:</Text>
+                    <Text h2>{thisMenu.restaurantName}</Text>
+                    <Spacer h={2} />
 
-                    <div>
-                        {thisMenu.menuItems.map((item, index) => (
-                            <MenuItem key={index} item={item} />
-                        ))}
-                    </div>
-                </section>
+                    {thisMenu.menuItems.map((item, index) => (
+                        <MenuItem key={index} item={item} />
+                    ))}
+                </Card>
             ) : (
                 <p>This menu is not found.</p>
             )}

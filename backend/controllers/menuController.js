@@ -11,7 +11,7 @@ const getMenu = asyncHandler(async (req, res) => {
     res.status(200).json(menu);
 });
 
-// @desc Set Menu Items
+// @desc Create Menu Items
 // @route POST /api/menu
 // @access Private
 const setMenu = asyncHandler(async (req, res) => {
@@ -35,15 +35,16 @@ const setMenu = asyncHandler(async (req, res) => {
 const updateMenu = asyncHandler(async (req, res) => {
     const menu = await Menu.findById(req.params.id);
 
-    if (!menu) {
-        res.status(400);
-        throw new Error("Menu not found!");
-    }
-
     //Check for user
     if (!req.user) {
         res.status(401);
         throw new Error("User not found!");
+    }
+
+    //Check for menu
+    if (!menu) {
+        res.status(400);
+        throw new Error("Menu not found!");
     }
 
     // Logged in user matching the menu user
@@ -82,8 +83,11 @@ const deleteMenu = asyncHandler(async (req, res) => {
     }
 
     await menu.remove();
-    
-    res.status(200).json({ id: req.params.id, restaurantName: menu.restaurantName});
+
+    res.status(200).json({
+        id: req.params.id,
+        restaurantName: menu.restaurantName,
+    });
 });
 
 module.exports = {

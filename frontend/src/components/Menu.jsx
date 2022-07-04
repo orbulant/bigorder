@@ -1,25 +1,48 @@
 import { useDispatch } from "react-redux";
 import { deleteMenu } from "../features/menu/menuSlice";
 import { Link } from "react-router-dom";
+import { Fieldset, Button } from "@geist-ui/core";
+import { FcSalesPerformance } from "react-icons/fc";
 
-const MenuItem = ({ menu }) => {
+const Menu = ({ menu }) => {
     const dispatch = useDispatch();
 
     return (
-        <div className="menu">
-            <div>{new Date(menu.createdAt).toLocaleString("en-MY")}</div>
-            <h2>{menu.restaurantName}</h2>
-            <button
+        <Fieldset>
+            <Fieldset.Title>{menu.restaurantName}</Fieldset.Title>
+            <Fieldset.Subtitle>
+                {new Date(menu.createdAt).toLocaleString("en-MY")}
+            </Fieldset.Subtitle>
+            <Button
+                auto
+                scale={1 / 12}
+                type="error"
                 onClick={() => {
                     dispatch(deleteMenu(menu._id));
                 }}
-                className="close"
             >
                 X
-            </button>
-            <Link to={`${menu._id}`}>View</Link>
-        </div>
+            </Button>
+            <Fieldset.Footer>
+                <Link to={`${menu._id}`}>View</Link>
+                <Link to={`/generatemenuqr/${menu._id}`}>Generate QR</Link>
+            </Fieldset.Footer>
+            <Fieldset.Footer>
+                <Link to={`/uncompletedorders/${menu._id}`}>
+                    Pending Orders
+                </Link>
+                <Link to={`/completedorders/${menu._id}`}>
+                    Completed Orders
+                </Link>
+            </Fieldset.Footer>
+            <Fieldset.Footer>
+                <Link to={`/paidorders/${menu._id}`}>Paid Orders</Link>
+                <Link to={`/salesreports/${menu._id}`}>
+                    <FcSalesPerformance /> Sales Reports
+                </Link>
+            </Fieldset.Footer>
+        </Fieldset>
     );
 };
 
-export default MenuItem;
+export default Menu;

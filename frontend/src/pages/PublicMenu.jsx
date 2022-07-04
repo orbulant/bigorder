@@ -1,27 +1,44 @@
-import { getPublicMenu, reset } from "../features/publicmenu/publicMenuSlice";
+import {
+    getPublicMenu,
+    reset as menuReset,
+} from "../features/publicmenu/publicMenuSlice";
+import { reset as orderReset } from "../features/publicorder/publicOrderSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { CartProvider } from "react-use-cart";
 import Cart from "../components/Cart";
-import Order from "../components/Order";
-import { setCurrentOrderInfo } from "../features/order/publicOrderSlice";
+import PublicOrder from "../components/PublicOrder";
+import { setCurrentOrderInfo } from "../features/publicorder/publicOrderSlice";
 
 const PublicMenu = () => {
+    const [customTable, setCustomTable] = useState("");
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { menuId, tableNumber } = useParams();
 
-    const { restaurantName, menuItems, isLoading, isError, message } =
-        useSelector((state) => state.publicmenu);
+    const publicMenu = useSelector((state) => state.publicMenu);
+
+    const publicOrder = useSelector((state) => state.publicOrder);
 
     useEffect(() => {
-        if (isError) {
-            toast.error(message);
+        if (publicOrder.isError) {
+            toast.error(publicOrder.message);
+        }
+
+        if (publicMenu.isError) {
+            toast.error(publicMenu.message);
+        }
+
+        if (publicOrder.isCreated) {
+            toast.success(publicOrder.message);
+            navigate("/publicorders/" + publicOrder.publicOrder._id);
         }
 
         dispatch(getPublicMenu(menuId));
+
         dispatch(
             setCurrentOrderInfo({
                 originMenuId: menuId,
@@ -30,25 +47,52 @@ const PublicMenu = () => {
         );
 
         return () => {
-            dispatch(reset());
+            dispatch(menuReset());
+            dispatch(orderReset());
         };
-    }, [dispatch, isError, menuId, message, tableNumber]);
+    }, [
+        dispatch,
+        menuId,
+        navigate,
+        publicMenu.isError,
+        publicMenu.message,
+        publicOrder.isCreated,
+        publicOrder.isError,
+        publicOrder.message,
+        publicOrder.publicOrder._id,
+        tableNumber,
+    ]);
 
-    if (isLoading) {
+    if (publicMenu.isLoading) {
         return <Spinner />;
     }
 
     return (
         <>
-            <h3>Place your order from {restaurantName}</h3>
+            <h3>Place your order from {publicMenu.restaurantName}</h3>
 
-            <h4>Current table: {tableNumber}</h4>
-
+            <h4>Current table: {tableNumber ? tableNumber : customTable}</h4>
+            {tableNumber ? (
+                <div>
+                    <p>{tableNumber}</p>
+                </div>
+            ) : (
+                <div>
+                    <input
+                        type="text"
+                        placeholder="Table Number..."
+                        onChange={(e) => {
+                            setCustomTable(e.target.value);
+                        }}
+                    ></input>
+                </div>
+            )}
+            <div style={{ padding: "10px 10px" }}></div>
             <section>
                 <CartProvider>
-                    <Cart />
-                    {menuItems.length > 0 ? (
-                        <Order menuItems={menuItems} />
+                    <Cart customTable={customTable} />
+                    {publicMenu.menuItems.length > 0 ? (
+                        <PublicOrder menuItems={publicMenu.menuItems} />
                     ) : (
                         <h3>No Items Found.</h3>
                     )}

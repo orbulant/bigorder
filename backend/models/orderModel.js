@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const menuItemSchema = require("./menuItemModel");
 
 const orderSchema = mongoose.Schema(
     {
@@ -12,19 +11,31 @@ const orderSchema = mongoose.Schema(
             required: [true, "Please add restaurant name!"],
         },
         tableNumber: {
-            type: Number,
-            required: [true, "Please select table number!"],
+            type: String,
+            required: [true, "Please select table!"],
         },
         cart: {
             type: [
                 {
-                    itemId: {
+                    id: {
                         type: String,
                         required: [true, "Please provide item id"],
+                    },
+                    name: {
+                        type: String,
+                        required: [true, "Please provide item name"],
+                    },
+                    desc: {
+                        type: String,
+                        required: [true, "Please provide item description!"],
                     },
                     quantity: {
                         type: Number,
                         required: [true, "Please provide quantity"],
+                    },
+                    itemTotal: {
+                        type: Number,
+                        required: [true, "Please provide item total amount!"],
                     },
                 },
             ],
@@ -33,6 +44,10 @@ const orderSchema = mongoose.Schema(
         completed: {
             type: Boolean,
             required: [true, "Please provide order completed status!"],
+        },
+        paid: {
+            type: Boolean,
+            required: [true, "Please provide order paid or not paid!"],
         },
     },
     { timestamps: true }

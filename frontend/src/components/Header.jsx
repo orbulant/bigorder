@@ -8,7 +8,7 @@ const Header = () => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
 
-    const location = useLocation();
+    const { pathname } = useLocation();
 
     const onLogout = () => {
         dispatch(logout());
@@ -17,14 +17,14 @@ const Header = () => {
 
     return (
         <header className="header">
-            <div className="logo">
+            <div>
                 <Link to="/">BigOrder</Link>
             </div>
             <ul>
                 {user ? (
-                    //TODO CHANGE THIS USING MATCHPATH
-                    location.pathname.includes("publicmenu") ? (
-                        <div>Order Below!</div>
+                    matchPath("/publicmenu/*", pathname) ||
+                    matchPath("/publicorder/*", pathname) ? (
+                        <div>Enjoy!</div>
                     ) : (
                         <>
                             <li>

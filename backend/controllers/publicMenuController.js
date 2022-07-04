@@ -6,8 +6,11 @@ const Menu = require("../models/menuModel");
 // @route GET /api/publicmenu
 // @access Public
 const getPublicMenu = asyncHandler(async (req, res) => {
-    let menu = await Menu.findOne({ _id: req.params.id }, '-user -createdAt -updatedAt -__v');
-    
+    let menu = await Menu.findOne(
+        { _id: req.params.id },
+        "-user -createdAt -updatedAt -__v"
+    );
+
     res.status(200).json(menu);
 });
 

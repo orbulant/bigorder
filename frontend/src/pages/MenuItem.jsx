@@ -3,8 +3,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
-import { getMenu, reset, updateMenuThunk, updateMenu } from "../features/menu/menuSlice";
+import {
+    getMenu,
+    reset,
+    updateMenuThunk,
+    updateMenu,
+} from "../features/menu/menuSlice";
 import { Form, Field } from "react-final-form";
+import { FaArrowLeft } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { deleteMenuItem } from "../features/menu/menuSlice";
+import { Card, Spacer } from "@geist-ui/core";
 
 const MenuItem = () => {
     const navigate = useNavigate();
@@ -12,7 +21,7 @@ const MenuItem = () => {
     const { menuId, menuItemId } = useParams();
 
     const { user } = useSelector((state) => state.auth);
-    const { menu, isLoading, isError, message } = useSelector(
+    const { isLoading, isSuccess, isError, isDeleted, message } = useSelector(
         (state) => state.menu
     );
     const selectedMenuItem = useSelector((state) =>
@@ -32,12 +41,21 @@ const MenuItem = () => {
             toast.error(message);
         }
 
+        if (isSuccess && !isDeleted) {
+            toast.success("Changes saved!");
+        }
+
+        if (isDeleted) {
+            toast.info("Item deleted!");
+            navigate("/menus/" + menuId);
+        }
+
         dispatch(getMenu());
 
         return () => {
             dispatch(reset());
         };
-    }, [isError, message, dispatch]);
+    }, [isError, message, dispatch, isSuccess, isDeleted, navigate, menuId]);
 
     if (isLoading) {
         return <Spinner />;
@@ -48,11 +66,20 @@ const MenuItem = () => {
         dispatch(updateMenuThunk(menuId));
     };
 
+    const onClick = () => {
+        dispatch(
+            deleteMenuItem({ id: menuId, menuItemId: selectedMenuItem._id })
+        );
+        dispatch(updateMenuThunk(menuId));
+    };
+
     return (
         <>
-            <h2>{JSON.stringify(menu)}</h2>
-            <h2>{JSON.stringify(selectedMenuItem)}</h2>
-            <section>
+            <Link to={"/menus/" + menuId}>
+                <FaArrowLeft /> Go Back
+            </Link>
+            <Spacer h={2} />
+            <Card>
                 <Form
                     onSubmit={onSubmit}
                     initialValues={{
@@ -102,25 +129,35 @@ const MenuItem = () => {
                                         min="0"
                                     />
                                 </div>
+
                                 <button
-                                    type="submit"
-                                    disabled={submitting || pristine}
-                                >
-                                    Submit
-                                </button>
-                                <button
+                                    className="btn-small"
                                     type="button"
                                     onClick={form.reset}
                                     disabled={submitting || pristine}
                                 >
                                     Reset
                                 </button>
+                                <button
+                                    className="btn-add-small"
+                                    type="submit"
+                                    disabled={submitting || pristine}
+                                >
+                                    Submit
+                                </button>
+
+                                <button
+                                    className="btn-remove-small"
+                                    type="button"
+                                    onClick={onClick}
+                                >
+                                    Delete
+                                </button>
                             </div>
-                            <pre>{JSON.stringify(values, 0, 4)}</pre>
                         </form>
                     )}
                 />
-            </section>
+            </Card>
         </>
     );
 };

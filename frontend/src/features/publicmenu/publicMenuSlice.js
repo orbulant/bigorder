@@ -5,9 +5,9 @@ const initialState = {
     _id: "",
     restaurantName: "",
     menuItems: [],
-    isLoading: false,
-    isSuccess: false,
     isError: false,
+    isSuccess: false,
+    isLoading: false,
     message: "",
 };
 

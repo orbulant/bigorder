@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { FaSignInAlt } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { login, reset } from "../features/auth/authSlice";
+import { Cat } from "react-kawaii";
+import Typewriter from "typewriter-effect";
+
 import Spinner from "../components/Spinner";
 
 const Login = () => {
@@ -59,9 +61,19 @@ const Login = () => {
         <>
             <section className="heading">
                 <h1>
-                    <FaSignInAlt /> Login
+                    <Cat size={180} mood="excited" color="#596881" />
+                    BigOrder
                 </h1>
-                <p> Login to BigOrder.</p>
+
+                <div>
+                    <Typewriter
+                        options={{
+                            strings: ["Login now!"],
+                            autoStart: true,
+                            loop: true,
+                        }}
+                    />
+                </div>
             </section>
 
             <section className="form">
