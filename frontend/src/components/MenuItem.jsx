@@ -8,16 +8,18 @@ const MenuItem = ({ item }) => {
             <Description
                 title="Description"
                 content={item.desc ? item.desc : "This item has no description"}
-                style={{textAlign: "left"}}
+                style={{ textAlign: "left" }}
             />
             <Spacer h={1} />
-            <Button
-                auto
-                type="secondary"
-                onClick={() => navigate(`${item._id}`)}
-            >
-                Edit
-            </Button>
+            <div style={{justifyContent: "center" }}>
+                <Button
+                    auto
+                    type="secondary"
+                    onClick={() => navigate(`${item._id}`)}
+                >
+                    Edit
+                </Button>
+            </div>
         </Collapse>
     );
 };

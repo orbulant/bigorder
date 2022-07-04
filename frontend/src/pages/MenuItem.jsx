@@ -97,7 +97,7 @@ const MenuItem = () => {
                     }) => (
                         <form onSubmit={handleSubmit}>
                             <div
-                                className="form-group content"
+                                className="form-group"
                                 key={selectedMenuItem?._id}
                             >
                                 <Card.Content>

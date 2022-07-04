@@ -71,16 +71,16 @@ const PublicMenu = () => {
     return (
         <Card>
             <h3>Place your order from {publicMenu.restaurantName}</h3>
-            <h4>Current table: {tableNumber ? tableNumber : customTable}</h4>
             {tableNumber ? (
                 <div>
-                    <p>{tableNumber}</p>
+                    <p>Current Table: {tableNumber}</p>
                 </div>
             ) : (
                 <div>
+                    <p>Enter table number:</p>
                     <input
                         type="text"
-                        placeholder="Table Number..."
+                        placeholder="e.g. 37"
                         onChange={(e) => {
                             setCustomTable(e.target.value);
                         }}

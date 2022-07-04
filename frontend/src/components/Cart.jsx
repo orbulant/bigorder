@@ -45,22 +45,22 @@ const Cart = ({ customTable }) => {
                     padding: "10px 20px",
                 }}
             >
-                <button className="btn-small" onClick={onClick}>
+                <Button type="success-light" onClick={onClick}>
                     Place order!
-                </button>
+                </Button>
             </div>
             <div style={{ padding: "15px 20px" }}>
                 <div>
-                    <h2>
+                    <h3>
                         Your have a total of {totalItems} items in your cart.
-                    </h2>
+                    </h3>
                     <Badge font="18px">
                         Total (RM): {cartTotal.toFixed(2)}
                     </Badge>
                 </div>
                 <Spacer h={1} />
                 {!isEmpty && (
-                    <Button type="error" onClick={emptyCart}>
+                    <Button auto type="error" onClick={emptyCart}>
                         Empty cart
                     </Button>
                 )}

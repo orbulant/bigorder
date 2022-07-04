@@ -52,6 +52,7 @@ const Menu = () => {
                 </Link>
             </div>
             <Spacer h={2} />
+
             {thisMenu ? (
                 <Card>
                     <Text>Currently viewing this menu:</Text>
