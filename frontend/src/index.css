@@ -271,7 +271,12 @@ h3 {
   margin-top: auto;
 }
 
-.form
+.form{
+  width: 80%;
+  color: #000;
+  margin: 0 auto;
+}
+
 .content {
   width: 80%;
   color: #000;
