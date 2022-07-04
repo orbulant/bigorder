@@ -80,61 +80,55 @@ function App() {
                             }}
                         />
                     </WaveContainer>
-                    <div>
-                        <Routes>
-                            <Route path="*" element={<NotFound />} />
-                            <Route path="/" element={<Dashboard />} />
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/register" element={<Register />} />
-                            <Route path="/menus" element={<Menus />} />
-                            <Route path="/menus/:menuId" element={<Menu />} />
-                            <Route
-                                path="/menus/:menuId/:menuItemId"
-                                element={<MenuItem />}
-                            />
-                            <Route
-                                path="/createmenu"
-                                element={<CreateMenu />}
-                            />
-                            <Route
-                                path="/uncompletedorders/:menuId"
-                                element={<UncompletedOrders />}
-                            />
-                            <Route
-                                path="/completedorders/:menuId"
-                                element={<CompletedOrders />}
-                            />
-                            <Route
-                                path="/receipt/:orderId"
-                                element={<Receipt />}
-                            />
-                            <Route
-                                path="/generatemenuqr/:menuId"
-                                element={<GenerateMenuQR />}
-                            />
-                            <Route
-                                path="/publicmenu/:menuId/:tableNumber"
-                                element={<PublicMenu />}
-                            />
-                            <Route
-                                path="/publicmenu/:menuId/"
-                                element={<PublicMenu />}
-                            />
-                            <Route
-                                path="/publicorders/:orderId/"
-                                element={<PublicOrder />}
-                            />
-                            <Route
-                                path="/paidorders/:menuId"
-                                element={<PaidOrders />}
-                            />
-                            <Route
-                                path="/salesreports/:menuId"
-                                element={<SalesReports />}
-                            />
-                            <Route path="/about" element={<About />} />
-                        </Routes>
-                    </div>
+
+                    <Routes>
+                        <Route path="*" element={<NotFound />} />
+                        <Route path="/" element={<Dashboard />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
+                        <Route path="/menus" element={<Menus />} />
+                        <Route path="/menus/:menuId" element={<Menu />} />
+                        <Route
+                            path="/menus/:menuId/:menuItemId"
+                            element={<MenuItem />}
+                        />
+                        <Route path="/createmenu" element={<CreateMenu />} />
+                        <Route
+                            path="/uncompletedorders/:menuId"
+                            element={<UncompletedOrders />}
+                        />
+                        <Route
+                            path="/completedorders/:menuId"
+                            element={<CompletedOrders />}
+                        />
+                        <Route path="/receipt/:orderId" element={<Receipt />} />
+                        <Route
+                            path="/generatemenuqr/:menuId"
+                            element={<GenerateMenuQR />}
+                        />
+                        <Route
+                            path="/publicmenu/:menuId/:tableNumber"
+                            element={<PublicMenu />}
+                        />
+                        <Route
+                            path="/publicmenu/:menuId/"
+                            element={<PublicMenu />}
+                        />
+                        <Route
+                            path="/publicorders/:orderId/"
+                            element={<PublicOrder />}
+                        />
+                        <Route
+                            path="/paidorders/:menuId"
+                            element={<PaidOrders />}
+                        />
+                        <Route
+                            path="/salesreports/:menuId"
+                            element={<SalesReports />}
+                        />
+                        <Route path="/about" element={<About />} />
+                    </Routes>
+
                     <Footer />
                 </div>
             </Router>

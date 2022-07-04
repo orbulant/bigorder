@@ -56,7 +56,7 @@ const Menus = () => {
                 </Link>
             </div>
             <Spacer h={1} />
-            <section className="content">
+            <section className="marginalizedContent">
                 {menu.length > 0 ? (
                     <section>
                         {menu.map((menu, index) => (

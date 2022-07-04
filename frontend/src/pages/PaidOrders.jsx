@@ -39,7 +39,7 @@ const PaidOrders = () => {
     }
 
     return (
-        <section className="content">
+        <section className="marginalizedContent">
             <div className="nav-link">
                 <Link to="/menus" font="18px">
                     <FaArrowLeft size={18} style={{ paddingTop: "6px" }} /> Go

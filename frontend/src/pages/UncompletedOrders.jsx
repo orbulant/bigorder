@@ -39,7 +39,7 @@ const UncompletedOrders = () => {
     }
 
     return (
-        <section className="content">
+        <section className="marginalizedContent">
             <div className="nav-link">
                 <Link to="/menus" style={{ fontSize: 18 }}>
                     <FaArrowLeft size={18} style={{ paddingTop: "6px" }} /> Go
