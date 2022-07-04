@@ -67,7 +67,7 @@ const UncompletedOrders = () => {
                     </div>
                 ))
             ) : (
-                <p style={{ fontSize: 30 }}>
+                <p style={{ fontSize: 30, color: "#FFF" }}>
                     No pending orders from this menu{" "}
                     <FaSadTear size="32" style={{ verticalAlign: "sub" }} />
                 </p>

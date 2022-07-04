@@ -59,7 +59,7 @@ const PaidOrders = () => {
                     </div>
                 ))
             ) : (
-                <p style={{ fontSize: 24 }}>
+                <p style={{ fontSize: 24, color: "#FFF" }}>
                     All orders paid{" "}
                     <FaSmile size="32" style={{ verticalAlign: "sub" }} />
                 </p>

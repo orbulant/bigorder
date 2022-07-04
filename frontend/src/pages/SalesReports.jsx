@@ -45,29 +45,45 @@ const SalesReports = () => {
         <Grid.Container gap={1.5}>
             <Grid xs={12}>
                 <Card shadow type="secondary" width={"100%"}>
-                    <Text h2 my={0} style={{ textTransform: "uppercase" }}>
+                    <Text
+                        h2
+                        my={0}
+                        style={{ textTransform: "uppercase", color: "#FFF" }}
+                    >
                         Total Number of Orders to Date
                     </Text>
-                    <Text>{totalOrdersMade}</Text>
+                    <Text style={{color: "#FFF"}}>{totalOrdersMade}</Text>
                 </Card>
             </Grid>
             <Grid xs={12}>
                 <Card shadow type="alert" width={"100%"}>
-                    <Text h2 my={0} style={{ textTransform: "uppercase" }}>
+                    <Text
+                        h2
+                        my={0}
+                        style={{ textTransform: "uppercase", color: "#FFF" }}
+                    >
                         Total Sales Generated
                     </Text>
-                    <Text>{totalMoneyMade.toFixed(2)}</Text>
+                    <Text style={{ color: "#FFF" }}>RM{" "}
+                        {totalMoneyMade.toFixed(2)}
+                    </Text>
                 </Card>
             </Grid>
             <Grid xs={12}>
                 <Card shadow type="warning" width={"100%"}>
-                    <Text h4 my={0} style={{ textTransform: "uppercase" }}>
+                    <Text
+                        h4
+                        my={0}
+                        style={{ textTransform: "uppercase", color: "#FFF" }}
+                    >
                         List of most ordered items (Most to Least)
                     </Text>
                     {Object.keys(orderedItemsCount).map((key, val) => (
                         <div key={val}>
                             <Dot style={{ marginRight: "20px" }}>{key}</Dot>
-                            <Text>{orderedItemsCount[key]}</Text>
+                            <Text style={{ color: "#FFF" }}>
+                                {orderedItemsCount[key]}
+                            </Text>
                         </div>
                     ))}
                 </Card>

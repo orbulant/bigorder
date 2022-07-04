@@ -7,7 +7,7 @@ import { getMenu, reset } from "../features/menu/menuSlice";
 
 import Menu from "../components/Menu";
 import Spinner from "../components/Spinner";
-import { Spacer } from "@geist-ui/core";
+import { Spacer, Text } from "@geist-ui/core";
 
 const Menus = () => {
     const navigate = useNavigate();
@@ -67,7 +67,7 @@ const Menus = () => {
                         ))}
                     </section>
                 ) : (
-                    <h3>You currently have no menus.</h3>
+                    <h3 style={{color: "#FFF"}}>You currently have no menus.</h3>
                 )}
             </section>
         </>
