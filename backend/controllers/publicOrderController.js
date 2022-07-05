@@ -35,6 +35,8 @@ const createNewOrder = asyncHandler(async (req, res) => {
         });
     });
 
+    console.log(newCartItems)
+
     const order = await Order.create({
         originMenuId: req.body.originMenuId,
         restaurantName: menu.restaurantName,

@@ -27,7 +27,7 @@ const orderSchema = mongoose.Schema(
                     },
                     desc: {
                         type: String,
-                        required: [true, "Please provide item description!"],
+                        required: false,
                     },
                     quantity: {
                         type: Number,
