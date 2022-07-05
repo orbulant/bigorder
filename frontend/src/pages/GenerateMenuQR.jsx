@@ -148,7 +148,7 @@ const GenerateMenuQR = () => {
                                     onButtonClickDownload(values.tableNumber)
                                 }
                             >
-                                Download QR PDF
+                                Download QR
                             </Button>
                         </>
                     )}
