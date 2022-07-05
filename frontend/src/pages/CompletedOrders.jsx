@@ -70,7 +70,7 @@ const CompletedOrders = () => {
                 ))
             ) : (
                 <p style={{ fontSize: 24, color: "#FFF" }}>
-                    All orders paid{" "}
+                    No completed orders{" "}
                     <FaSmile size="32" style={{ verticalAlign: "sub" }} />
                 </p>
             )}
