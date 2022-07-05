@@ -14,10 +14,17 @@ const CompletedOrders = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { menuId } = useParams();
+    const { user } = useSelector((state) => state.auth);
     const { isError, isLoading, message, orders, isSuccess } = useSelector(
         (state) => state.order
     );
     const onClickKeyword = "Generate Receipt";
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/login");
+        }
+    }, [user, navigate]);
 
     useEffect(() => {
         if (isError) {

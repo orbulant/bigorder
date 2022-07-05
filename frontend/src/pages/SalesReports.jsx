@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import Spinner from "../components/Spinner";
 import { reset } from "../features/publicorder/publicOrderSlice";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import {
     getTotalOrdersMade,
     getTotalMoneyMade,
@@ -15,6 +15,8 @@ import { FaArrowLeft } from "react-icons/fa";
 const SalesReports = () => {
     const { menuId } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { user } = useSelector((state) => state.auth);
 
     const {
         isLoading,
@@ -24,6 +26,12 @@ const SalesReports = () => {
         totalMoneyMade,
         orderedItemsCount,
     } = useSelector((state) => state.sales);
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/login");
+        }
+    }, [user, navigate]);
 
     useEffect(() => {
         if (isError) {

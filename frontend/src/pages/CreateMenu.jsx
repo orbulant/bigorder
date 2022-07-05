@@ -1,9 +1,20 @@
-import MenuForm from "../components/MenuForm";
+import { useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Spacer } from "@geist-ui/core";
+import { useSelector } from "react-redux";
+
+import MenuForm from "../components/MenuForm";
 
 const CreateMenu = () => {
+    const { user } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/login");
+        }
+    }, [user, navigate]);
     return (
         <>
             <Link to="/menus" style={{ fontSize: 18 }}>

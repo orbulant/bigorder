@@ -15,6 +15,7 @@ const Receipt = () => {
     const navigate = useNavigate();
     const { orderId } = useParams();
     const ref = useRef(null);
+    const { user } = useSelector((state) => state.auth);
     const { isError, isLoading, message, orders, isSuccess } = useSelector(
         (state) => state.order
     );
@@ -37,6 +38,12 @@ const Receipt = () => {
         },
         [ref]
     );
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/login");
+        }
+    }, [user, navigate]);
 
     useEffect(() => {
         if (isError) {
@@ -68,8 +75,8 @@ const Receipt = () => {
                     Back
                 </Link>
             </div>
-            <Spacer h={1}/>
-            <h1 style={{color: "#FFF"}}>Receipt</h1>
+            <Spacer h={1} />
+            <h1 style={{ color: "#FFF" }}>Receipt</h1>
             <Spacer h={0.5} />
             <Button
                 type="warning"
@@ -92,7 +99,7 @@ const Receipt = () => {
             >
                 Print
             </Button>
-            <Spacer h={2}/>
+            <Spacer h={2} />
             <div ref={ref}>
                 <Card>
                     <Text font="24px" style={{ padding: "20px 20px" }}>

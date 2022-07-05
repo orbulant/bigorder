@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { reset } from "../features/order/orderSlice";
 import { toast } from "react-toastify";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { FaSmile, FaArrowLeft } from "react-icons/fa";
 import { getPaidOrders } from "../features/order/orderSlice";
 
@@ -12,11 +12,19 @@ import { Spacer } from "@geist-ui/core";
 
 const PaidOrders = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { menuId } = useParams();
+    const { user } = useSelector((state) => state.auth);
     const { isError, isLoading, message, orders, isSuccess } = useSelector(
         (state) => state.order
     );
     const onClickKeyword = "Generate Receipt";
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/login");
+        }
+    }, [user, navigate]);
 
     useEffect(() => {
         if (isError) {

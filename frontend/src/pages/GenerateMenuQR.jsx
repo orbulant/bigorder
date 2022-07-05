@@ -1,16 +1,17 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { QRCodeSVG } from "qrcode.react";
 import { Form, Field } from "react-final-form";
 import { Button, Divider, Text, Input, Spacer, Card } from "@geist-ui/core";
 import { toPng } from "html-to-image";
-import { useRef } from "react";
-import { useCallback } from "react";
+import { useRef, useCallback, useEffect } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 
 const GenerateMenuQR = () => {
     const { menuId } = useParams();
+    const navigate = useNavigate();
     const ref = useRef(null);
-
+    const { user } = useSelector((state) => state.auth);
     const url = window.location.host + "/";
 
     const required = (value) =>
@@ -52,6 +53,12 @@ const GenerateMenuQR = () => {
         },
         [ref, menuId]
     );
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/login");
+        }
+    }, [user, navigate]);
 
     return (
         <>

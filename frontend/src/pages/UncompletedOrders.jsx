@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { reset, getUncompletedOrders } from "../features/order/orderSlice";
 import { toast } from "react-toastify";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate} from "react-router-dom";
 import { FaSadTear, FaArrowLeft } from "react-icons/fa";
 import { setOrderCompleted } from "../features/order/orderSlice";
 import { Spacer } from "@geist-ui/core";
@@ -12,11 +12,20 @@ import Order from "../components/Order";
 
 const UncompletedOrders = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { user } = useSelector((state) => state.auth);
     const { menuId } = useParams();
     const { isError, isLoading, message, orders, isSuccess } = useSelector(
         (state) => state.order
     );
     const onClickKeyword = "Mark Completed";
+
+
+    useEffect(() => {
+        if (!user) {
+            navigate("/login");
+        }
+    }, [user, navigate]);
 
     useEffect(() => {
         if (isError) {
