@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import MenuItem from "../components/MenuItem";
 import Spinner from "../components/Spinner";
 import { getMenu, reset } from "../features/menu/menuSlice";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Spacer, Card, Text, Collapse } from "@geist-ui/core";
 
@@ -54,15 +54,22 @@ const Menu = () => {
             <Spacer h={2} />
 
             {thisMenu ? (
-                <Card>
-                    <Text>Currently viewing this menu:</Text>
-                    <Text h2>{thisMenu.restaurantName}</Text>
-                    <Collapse.Group>
-                        {thisMenu.menuItems.map((item, index) => (
-                            <MenuItem key={index} item={item} />
-                        ))}
-                    </Collapse.Group>
-                </Card>
+                <>
+                    <Spacer h={1} />
+                    <Link to={`/createmenuitem/${menuId}`}>
+                        <FaPlus /> Add Item
+                    </Link>
+                    <Spacer h={1} />
+                    <Card>
+                        <Text>Currently viewing this menu:</Text>
+                        <Text h2>{thisMenu.restaurantName}</Text>
+                        <Collapse.Group>
+                            {thisMenu.menuItems.map((item, index) => (
+                                <MenuItem key={index} item={item} />
+                            ))}
+                        </Collapse.Group>
+                    </Card>
+                </>
             ) : (
                 <p>This menu is not found.</p>
             )}

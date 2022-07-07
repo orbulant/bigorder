@@ -100,7 +100,7 @@ const getOrderedItemsCount = asyncHandler(async (req, res) => {
         );
     });
 
-    const total = result.reduce((a, { id, ...rest }) => {
+    const total = result.reduce((a, {id, ...rest}) => {
         Object.entries(rest).forEach(([key, val]) => {
             a[key] = (a[key] || 0) + val;
         });

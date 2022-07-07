@@ -7,6 +7,7 @@ import { getOrder } from "../features/order/orderSlice";
 import { Button, Table, Text, Card, Spacer } from "@geist-ui/core";
 import { toPng } from "html-to-image";
 import { FaArrowLeft } from "react-icons/fa";
+import moment from "moment";
 
 import Spinner from "../components/Spinner";
 
@@ -106,6 +107,14 @@ const Receipt = () => {
                         Table: {orders.tableNumber}
                     </Text>
                     <Text>Order ID: {orders._id}</Text>
+                    <Text>
+                        Order Placed At:{" "}
+                        {moment(orders.createdAt).format("hh:mm:ssA DD/MM/YYYY")}
+                    </Text>
+                    <Text>
+                        Modified At:{" "}
+                        {moment(orders.updatedAt).format("hh:mm:ssA DD/MM/YYYY")}
+                    </Text>
                     <Card>
                         <Table data={orders.cart}>
                             <Table.Column prop="name" label="Item Name" />

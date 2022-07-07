@@ -73,13 +73,11 @@ export const updateMenuThunk = createAsyncThunk(
         try {
             const token = thunkAPI.getState().auth.user.token;
 
-            const menuToUpdate = thunkAPI.getState().menu.menu.find(menu => menu._id === id);
+            const menuToUpdate = thunkAPI
+                .getState()
+                .menu.menu.find((menu) => menu._id === id);
 
-            return await menuService.updateMenu(
-                id,
-                menuToUpdate,
-                token
-            );
+            return await menuService.updateMenu(id, menuToUpdate, token);
         } catch (error) {
             const message =
                 (error.response &&
@@ -98,16 +96,31 @@ export const menuSlice = createSlice({
     reducers: {
         reset: (state) => initialState,
         updateMenu: (state, action) => {
-            const foundIndex = state.menu.findIndex(menu => menu._id === action.payload.id);
-            const foundItemIndex = state.menu[foundIndex].menuItems.findIndex(item => item._id === action.payload.body._id)
-            state.menu[foundIndex].menuItems[foundItemIndex] = action.payload.body;
+            const foundIndex = state.menu.findIndex(
+                (menu) => menu._id === action.payload.id
+            );
+            const foundItemIndex = state.menu[foundIndex].menuItems.findIndex(
+                (item) => item._id === action.payload.body._id
+            );
+            state.menu[foundIndex].menuItems[foundItemIndex] =
+                action.payload.body;
+        },
+        addMenuItem: (state, action) => {
+            const foundIndex = state.menu.findIndex(
+                (menu) => menu._id === action.payload.id
+            );
+            state.menu[foundIndex].menuItems.push(action.payload.item);
         },
         deleteMenuItem: (state, action) => {
-            const foundIndex = state.menu.findIndex(menu => menu._id === action.payload.id);
-            const foundItemIndex = state.menu[foundIndex].menuItems.findIndex(item => item._id === action.payload.menuItemId)
+            const foundIndex = state.menu.findIndex(
+                (menu) => menu._id === action.payload.id
+            );
+            const foundItemIndex = state.menu[foundIndex].menuItems.findIndex(
+                (item) => item._id === action.payload.menuItemId
+            );
             state.menu[foundIndex].menuItems.splice(foundItemIndex, 1);
             state.isDeleted = true;
-        }
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -176,5 +189,5 @@ export const menuSlice = createSlice({
     },
 });
 
-export const { reset, updateMenu, deleteMenuItem } = menuSlice.actions;
+export const { reset, updateMenu, deleteMenuItem, addMenuItem } = menuSlice.actions;
 export default menuSlice.reducer;

@@ -150,9 +150,9 @@ const MenuForm = () => {
                                                 <Spacer h={0.5} />
                                                 <Field
                                                     name={`${name}.desc`}
-                                                    validate={composeValidators(
+                                                    validate={
                                                         noStartingAndTrailingWhitespace
-                                                    )}
+                                                    }
                                                 >
                                                     {({ input, meta }) => (
                                                         <div>
@@ -194,6 +194,7 @@ const MenuForm = () => {
                                                                 htmlType="number"
                                                                 clearable
                                                                 width={"100%"}
+                                                                min={0}
                                                                 placeholder="0.00"
                                                             />
                                                             <span

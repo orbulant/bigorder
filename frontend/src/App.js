@@ -23,6 +23,7 @@ import Wave from "react-wavify";
 import styled from "@emotion/styled";
 import Footer from "./components/Footer";
 import About from "./pages/About";
+import CreateMenuItem from "./pages/CreateMenuItem";
 
 function App() {
     const WaveContainer = styled.div`
@@ -88,6 +89,7 @@ function App() {
                         <Route path="/register" element={<Register />} />
                         <Route path="/menus" element={<Menus />} />
                         <Route path="/menus/:menuId" element={<Menu />} />
+                        <Route path="/createmenuitem/:menuId" element={<CreateMenuItem />} />
                         <Route
                             path="/menus/:menuId/:menuItemId"
                             element={<MenuItem />}
