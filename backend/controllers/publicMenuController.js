@@ -9,7 +9,7 @@ const getPublicMenu = asyncHandler(async (req, res) => {
     let menu = await Menu.findOne(
         { _id: req.params.id },
         "-user -createdAt -updatedAt -__v"
-    );
+    ).sort({menuItems: {name: 1}});
 
     res.status(200).json(menu);
 });

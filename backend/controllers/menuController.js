@@ -1,4 +1,5 @@
 const asyncHandler = require("express-async-handler");
+const mongoose = require("mongoose");
 
 const Menu = require("../models/menuModel");
 const User = require("../models/userModel");
@@ -7,7 +8,23 @@ const User = require("../models/userModel");
 // @route GET /api/menu
 // @access Private
 const getMenu = asyncHandler(async (req, res) => {
-    const menu = await Menu.find({ user: req.user.id });
+    function compare(a, b) {
+        if (a.last_nom > b.last_nom) return 1;
+        if (a.last_nom < b.last_nom) return -1;
+        return 0;
+    }
+    const menu = await Menu.find({ user: req.user.id }).sort({
+        createdAt: -1,
+    });
+
+    //Sorts menu items in each menu to be in ascending order
+    menu.forEach((menu) =>
+        menu.menuItems.sort((a, b) => {
+            const alc = a.name.toLowerCase(), blc = b.name.toLowerCase();
+            return alc > blc ? 1 : alc < blc ? -1 : 0;
+        })
+    );
+
     res.status(200).json(menu);
 });
 
