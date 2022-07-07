@@ -16,10 +16,10 @@ const Menu = ({ menu }) => {
             <Popover
                 content={
                     <>
-                    <Popover.Item title>
-                        <span>Click "X" delete (CAREFUL)</span>
-                    </Popover.Item>
-                        <Popover.Item style={{justifyContent: "center"}}>
+                        <Popover.Item title>
+                            <span>Click "X" delete (CAREFUL)</span>
+                        </Popover.Item>
+                        <Popover.Item style={{ justifyContent: "center" }}>
                             <Button
                                 auto
                                 scale={1 / 12}
@@ -34,7 +34,19 @@ const Menu = ({ menu }) => {
                     </>
                 }
             >
-                <Text font="12px">Wish to delete?</Text>
+                <Text
+                    font="12px"
+                    onMouseOver={(e) => {
+                        e.target.style.color = "#0000EE";
+                        e.target.style.textDecoration = "underline";
+                    }}
+                    onMouseLeave={(e) => {
+                        e.target.style.color = "#000";
+                        e.target.style.textDecoration = "none";
+                    }}
+                >
+                    Wish to delete?
+                </Text>
             </Popover>
 
             <Fieldset.Footer>
