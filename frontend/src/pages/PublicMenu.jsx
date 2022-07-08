@@ -12,7 +12,7 @@ import { CartProvider } from "react-use-cart";
 import Cart from "../components/Cart";
 import PublicOrder from "../components/PublicOrder";
 import { setCurrentOrderInfo } from "../features/publicorder/publicOrderSlice";
-import { Card } from "@geist-ui/core";
+import { Card, Spacer, Text } from "@geist-ui/core";
 
 const PublicMenu = () => {
     const [customTable, setCustomTable] = useState("");
@@ -70,7 +70,12 @@ const PublicMenu = () => {
 
     return (
         <Card>
-            <h3>Place your order from {publicMenu.restaurantName}</h3>
+            <h3>
+                Place your order from:{" "}
+                {publicMenu.restaurantName
+                    ? publicMenu.restaurantName
+                    : "<Menu Not Found!>"}
+            </h3>
             {tableNumber ? (
                 <div>
                     <p>Current Table: {tableNumber}</p>
@@ -91,10 +96,17 @@ const PublicMenu = () => {
             <section>
                 <CartProvider>
                     <Cart customTable={customTable} />
-                    {publicMenu.menuItems.length > 0 ? (
-                        <PublicOrder menuItems={publicMenu.menuItems} />
+                    {publicMenu.menuItems ? (
+                        publicMenu.menuItems.length > 0 ? (
+                            <PublicOrder menuItems={publicMenu.menuItems} />
+                        ) : (
+                            <h3>No Items Found.</h3>
+                        )
                     ) : (
-                        <h3>No Items Found.</h3>
+                        <>
+                            <Spacer h={1} />
+                            <Text h1>Menu Not Found!</Text>
+                        </>
                     )}
                 </CartProvider>
             </section>
