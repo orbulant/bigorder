@@ -13,7 +13,8 @@ import { Form, Field } from "react-final-form";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { deleteMenuItem } from "../features/menu/menuSlice";
-import { Card, Spacer, Text } from "@geist-ui/core";
+import { Card, Spacer, Text, Input, Divider, Button } from "@geist-ui/core";
+import { CgRename } from "react-icons/cg";
 
 const MenuItem = () => {
     const navigate = useNavigate();
@@ -29,6 +30,32 @@ const MenuItem = () => {
             .find((menu) => menu._id === menuId)
             ?.menuItems.find((item) => item._id === menuItemId)
     );
+
+    const required = (value) => (value ? undefined : "*Field Above Required*");
+
+    const mustBeNumber = (value) =>
+        isNaN(value) ? "Must be a number" : undefined;
+
+    const noStartingAndTrailingWhitespace = (value) =>
+        /^[^\s]+(\s+[^\s]+)*$/.test(value)
+            ? undefined
+            : "No beginning or trailing spaces allowed.";
+
+    const mustBeAlphanumericSpaceAndTabs = (value) =>
+        /^[a-zA-Z0-9_\s-]+$/.test(value)
+            ? undefined
+            : "Only [alphanumerics, commas, dots, underscores and spaces] allowed.";
+
+    const minValue = (min) => (value) =>
+        isNaN(value) || value >= min ? undefined : `Should be at least ${min}.`;
+
+    const composeValidators =
+        (...validators) =>
+        (value) =>
+            validators.reduce(
+                (error, validator) => error || validator(value),
+                undefined
+            );
 
     useEffect(() => {
         if (!user) {
@@ -104,61 +131,120 @@ const MenuItem = () => {
                                     <Text h2>{values.name}</Text>
                                     <Text h4>Price (RM): {values.price}</Text>
                                 </Card.Content>
-                                <div>
-                                    <label>Item Name</label>
-                                    <Field
-                                        type="text"
-                                        component="input"
-                                        name="name"
-                                        placeholder="Item Name"
-                                    />
-                                </div>
-                                <div>
-                                    <label>Description</label>
-                                    <Field
-                                        type="text"
-                                        component="textarea"
-                                        name="desc"
-                                        placeholder="Enter item description here..."
-                                    />
-                                </div>
-                                <div>
-                                    <label>Price</label>
-                                    <Field
-                                        type="number"
-                                        component="input"
-                                        name="price"
-                                        placeholder="Price (RM)"
-                                        step=".01"
-                                        min="0"
-                                    />
-                                </div>
-                                <Card.Footer
-                                    style={{ justifyContent: "center" }}
+                                <Field
+                                    name="name"
+                                    validate={composeValidators(
+                                        required,
+                                        mustBeAlphanumericSpaceAndTabs,
+                                        noStartingAndTrailingWhitespace
+                                    )}
                                 >
-                                    <button
-                                        className="btn-remove-small"
-                                        type="button"
-                                        onClick={onClick}
+                                    {({ input, meta }) => (
+                                        <div>
+                                            <Input
+                                                {...input}
+                                                clearable
+                                                icon={<CgRename />}
+                                                width={"100%"}
+                                                placeholder="Item Name"
+                                            />
+                                            <span
+                                                style={{
+                                                    color: "red",
+                                                    padding: "20px 20px",
+                                                }}
+                                            >
+                                                {meta.error &&
+                                                    meta.touched &&
+                                                    meta.error}
+                                            </span>
+                                        </div>
+                                    )}
+                                </Field>
+                                <Spacer h={0.5} />
+                                <Field
+                                    name="desc"
+                                    validate={noStartingAndTrailingWhitespace}
+                                >
+                                    {({ input, meta }) => (
+                                        <div>
+                                            <Input
+                                                {...input}
+                                                clearable
+                                                label="Description"
+                                                width={"100%"}
+                                                placeholder="(optional)"
+                                            />
+                                            <span
+                                                style={{
+                                                    color: "red",
+                                                    padding: "20px 20px",
+                                                }}
+                                            >
+                                                {meta.error &&
+                                                    meta.touched &&
+                                                    meta.error}
+                                            </span>
+                                        </div>
+                                    )}
+                                </Field>
+                                <Spacer h={0.5} />
+                                <Field
+                                    name="price"
+                                    validate={composeValidators(
+                                        required,
+                                        mustBeNumber,
+                                        minValue(0)
+                                    )}
+                                >
+                                    {({ input, meta }) => (
+                                        <div>
+                                            <Input
+                                                {...input}
+                                                clearable
+                                                label="Price (RM)"
+                                                htmlType="number"
+                                                min={0}
+                                                step={0.01}
+                                                width={"100%"}
+                                                placeholder="0.00"
+                                            />
+                                            <span
+                                                style={{
+                                                    color: "red",
+                                                    padding: "20px 20px",
+                                                }}
+                                            >
+                                                {meta.error &&
+                                                    meta.touched &&
+                                                    meta.error}
+                                            </span>
+                                        </div>
+                                    )}
+                                </Field>
+                                <Spacer h={1} />
+                                <Divider />
+                                <div>
+                                    <Button auto type="error" onClick={onClick}>
+                                        Delete this Item
+                                    </Button>
+                                    <Button
+                                        auto
+                                        type="success"
+                                        htmlType="submit"
+                                        disabled={submitting || pristine}
                                     >
-                                        Delete This Item
-                                    </button>
-                                    <button
-                                        className="btn-small"
-                                        type="button"
+                                        Submit
+                                    </Button>
+                                    <Button
+                                        auto
+                                        type="secondary"
                                         onClick={form.reset}
                                         disabled={submitting || pristine}
                                     >
                                         Reset
-                                    </button>
-                                    <button
-                                        className="btn-add-small"
-                                        type="submit"
-                                        disabled={submitting || pristine}
-                                    >
-                                        Submit
-                                    </button>
-                                </Card.Footer>
+                                    </Button>
+                                </div>
                             </div>
                         </form>
                     )}

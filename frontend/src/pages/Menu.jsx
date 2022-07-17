@@ -55,11 +55,13 @@ const Menu = () => {
 
             {thisMenu ? (
                 <>
-                    <Spacer h={1} />
-                    <Link to={`/createmenuitem/${menuId}`}>
-                        <FaPlus /> Add Item
-                    </Link>
-                    <Spacer h={1} />
+                    <div>
+                        <Spacer h={1} />
+                        <Link to={`/createmenuitem/${menuId}`}>
+                            <FaPlus /> Add Item
+                        </Link>
+                        <Spacer h={1} />
+                    </div>
                     <Card>
                         <Text>Currently viewing this menu:</Text>
                         <Text h2>{thisMenu.restaurantName}</Text>
