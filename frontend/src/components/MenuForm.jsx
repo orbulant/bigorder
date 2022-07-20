@@ -193,6 +193,7 @@ const MenuForm = () => {
                                                                 label="Price (RM)"
                                                                 htmlType="number"
                                                                 clearable
+                                                                step={.01}
                                                                 width={"100%"}
                                                                 min={0}
                                                                 placeholder="0.00"

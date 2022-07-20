@@ -170,7 +170,7 @@ const CreateMenuItem = () => {
                                                 label="Price (RM)"
                                                 htmlType="number"
                                                 min={0}
-                                                step=".01"
+                                                step={.01}
                                                 width={"100%"}
                                                 placeholder="0.00"
                                             />
