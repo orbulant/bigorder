@@ -79,70 +79,93 @@ const Receipt = () => {
             <Spacer h={1} />
             <h1 style={{ color: "#FFF" }}>Receipt</h1>
             <Spacer h={0.5} />
-            <Button
-                type="warning"
-                onClick={() => {
-                    dispatch(
-                        setOrderPaid({
-                            orderId: orderId,
-                            menuId: orders.originMenuId,
-                        })
-                    );
-                    navigate(`/completedorders/${orders.originMenuId}`);
-                }}
-                disabled={orders.paid}
-            >
-                Set Paid
-            </Button>
-            <Button
-                type="success"
-                onClick={() => onButtonClickDownload(orders)}
-            >
-                Print
-            </Button>
-            <Spacer h={2} />
-            <div ref={ref}>
+            {orders._id ? (
+                <>
+                    <Button
+                        type="warning"
+                        onClick={() => {
+                            dispatch(
+                                setOrderPaid({
+                                    orderId: orderId,
+                                    menuId: orders.originMenuId,
+                                })
+                            );
+                            navigate(`/completedorders/${orders.originMenuId}`);
+                        }}
+                        disabled={orders.paid}
+                    >
+                        Set Paid
+                    </Button>
+                    <Button
+                        type="success"
+                        onClick={() => onButtonClickDownload(orders)}
+                    >
+                        Print
+                    </Button>
+                    <Spacer h={2} />
+                    <div ref={ref}>
+                        <Card>
+                            <Text font="24px" style={{ padding: "20px 20px" }}>
+                                Table: {orders.tableNumber}
+                            </Text>
+                            <Text>Order ID: {orders._id}</Text>
+                            <Text>
+                                Order Placed At:{" "}
+                                {moment(orders.createdAt).format(
+                                    "hh:mm:ssA DD/MM/YYYY"
+                                )}
+                            </Text>
+                            <Text>
+                                Modified At:{" "}
+                                {moment(orders.updatedAt).format(
+                                    "hh:mm:ssA DD/MM/YYYY"
+                                )}
+                            </Text>
+                            <Card>
+                                <Table data={orders.cart}>
+                                    <Table.Column
+                                        prop="name"
+                                        label="Item Name"
+                                    />
+                                    <Table.Column
+                                        prop="quantity"
+                                        label="Quantity"
+                                    />
+                                    <Table.Column
+                                        prop="itemTotal"
+                                        label="Item Total (RM)"
+                                    />
+                                    <Table.Column
+                                        prop="itemPrice"
+                                        label="Item Price (RM)"
+                                        render={(value, rowData, index) =>
+                                            `${
+                                                rowData.itemTotal /
+                                                rowData.quantity
+                                            }`
+                                        }
+                                    />
+                                </Table>
+                            </Card>
+                            <p style={{ padding: "20px 20px" }}>
+                                Total (RM):{" "}
+                                {orders.cart &&
+                                    orders.cart
+                                        .reduce((accumulator, object) => {
+                                            return (
+                                                accumulator + object.itemTotal
+                                            );
+                                        }, 0)
+                                        .toFixed(2)}
+                            </p>
+                        </Card>
+                    </div>
+                </>
+            ) : (
                 <Card>
-                    <Text font="24px" style={{ padding: "20px 20px" }}>
-                        Table: {orders.tableNumber}
-                    </Text>
-                    <Text>Order ID: {orders._id}</Text>
-                    <Text>
-                        Order Placed At:{" "}
-                        {moment(orders.createdAt).format("hh:mm:ssA DD/MM/YYYY")}
-                    </Text>
-                    <Text>
-                        Modified At:{" "}
-                        {moment(orders.updatedAt).format("hh:mm:ssA DD/MM/YYYY")}
-                    </Text>
-                    <Card>
-                        <Table data={orders.cart}>
-                            <Table.Column prop="name" label="Item Name" />
-                            <Table.Column prop="quantity" label="Quantity" />
-                            <Table.Column
-                                prop="itemTotal"
-                                label="Item Total (RM)"
-                            />
-                            <Table.Column
-                                prop="itemPrice"
-                                label="Item Price (RM)"
-                                render={(value, rowData, index) =>
-                                    `${rowData.itemTotal / rowData.quantity}`
-                                }
-                            />
-                        </Table>
-                    </Card>
-                    <p style={{ padding: "20px 20px" }}>
-                        Total (RM):{" "}
-                        {orders.cart &&
-                            orders.cart
-                                .reduce((accumulator, object) => {
-                                    return accumulator + object.itemTotal;
-                                }, 0)
-                                .toFixed(2)}
-                    </p>
+                    <Text>No order found!</Text>
                 </Card>
-            </div>
+            )}
         </div>
     );
 };
